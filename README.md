@@ -10,7 +10,7 @@ This Go module simplifies how you use protobuf with Nats.io:
 To install the plugin:
 
 ```
-go install github.com/ftamhar/cmd/protoc-gen-toldata@latest
+go install github.com/ftamhar/toldata/cmd/protoc-gen-toldata@latest
 ```
 
 
