@@ -17,7 +17,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"os"
 	"path/filepath"
@@ -99,13 +99,14 @@ func newTemplate(content string) (*template.Template, error) {
 
 func generateBase(in *descriptor.FileDescriptorProto, outputFormat, templateString string) (*plugin_go.CodeGeneratorResponse_File, error) {
 	topPackageName := in.GetPackage()
-	packageName := in.Options.GetGoPackage()
+	packageName := in.GetOptions().GetGoPackage()
+	packageName = packageName[strings.LastIndex(packageName, "/")+1:]
 	if packageName == "" {
-		return nil, errors.New("Unable to find go_package options in .proto file")
+		return nil, errors.New("unable to find go_package options in .proto file")
 	}
 
 	if topPackageName == "" {
-		return nil, errors.New("Unable to find package declaration in .proto file")
+		return nil, errors.New("unable to find package declaration in .proto file")
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -133,7 +134,6 @@ func generateBase(in *descriptor.FileDescriptorProto, outputFormat, templateStri
 		Name:    &filename,
 		Content: stringPtr(buf.String()),
 	}, nil
-
 }
 
 func generate(in *descriptor.FileDescriptorProto) (*plugin_go.CodeGeneratorResponse_File, error) {
@@ -149,7 +149,7 @@ func generateREST(in *descriptor.FileDescriptorProto) (*plugin_go.CodeGeneratorR
 }
 
 func main() {
-	input, err := ioutil.ReadAll(os.Stdin)
+	input, err := io.ReadAll(os.Stdin)
 	if err != nil {
 		log.Fatalln(err)
 	}
