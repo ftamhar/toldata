@@ -23,7 +23,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/citradigital/toldata"
+	"github.com/ftamhar/toldata"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc/peer"
 )
@@ -107,14 +107,12 @@ func (b *TestToldataService) FeedData(stream TestService_FeedDataToldataServer) 
 
 	if err == io.EOF {
 		err := stream.Done(&FeedDataResponse{Sum: sum})
-
 		if err != nil {
 			stream.Error(err)
 		}
 	} else if err != nil {
 		stream.Error(err)
 	}
-
 }
 
 func (b *TestToldataService) StreamData(req *StreamDataRequest, stream TestService_StreamDataToldataServer) error {
@@ -133,7 +131,6 @@ func (b *TestToldataService) StreamData(req *StreamDataRequest, stream TestServi
 			return errors.New("crash")
 		}
 		err := stream.Send(&StreamDataResponse{Data: data[i] * req.Id})
-
 		if err != nil {
 			return err
 		}
@@ -220,8 +217,8 @@ func TestOKParallel1(t *testing.T) {
 	}
 
 	assert.Equal(t, v, sum)
-
 }
+
 func TestOKParallel2(t *testing.T) {
 	t.Parallel()
 	log.Println("Parallel 2 -----------")
@@ -236,8 +233,8 @@ func TestOKParallel2(t *testing.T) {
 		sum++
 	}
 	assert.Equal(t, v, sum)
-
 }
+
 func TestOKParallel3(t *testing.T) {
 	t.Parallel()
 	log.Println("Parallel 3 -----------")
@@ -251,7 +248,6 @@ func TestOKParallel3(t *testing.T) {
 		sum++
 	}
 	assert.Equal(t, v, sum)
-
 }
 
 /*
@@ -409,7 +405,6 @@ func TestClientStreamSad2(t *testing.T) {
 
 	assert.Equal(t, true, resp == nil)
 	cancel()
-
 }
 
 func TestServerStreamHappy(t *testing.T) {
@@ -453,7 +448,6 @@ func TestServerStreamHappy(t *testing.T) {
 	assert.Equal(t, 10, count)
 
 	cancel()
-
 }
 
 func TestServerStreamSad1(t *testing.T) {
@@ -535,7 +529,6 @@ func testServerStreamP(t *testing.T, title string, value int) {
 	for {
 		// Wait for the data to be available from the stream
 		data, err := stream.Receive()
-
 		if err != nil {
 			if err.Error() != "EOF" {
 				assert.Equal(t, nil, err)
@@ -554,7 +547,6 @@ func testServerStreamP(t *testing.T, title string, value int) {
 }
 
 func TestServerStreamParallel1(t *testing.T) {
-
 	t.Parallel()
 	rand.Seed(time.Now().UnixNano())
 
@@ -570,7 +562,6 @@ func TestServerStreamParallel1(t *testing.T) {
 }
 
 func TestServerStreamParallel2(t *testing.T) {
-
 	t.Parallel()
 	rand.Seed(time.Now().UnixNano())
 
@@ -586,7 +577,6 @@ func TestServerStreamParallel2(t *testing.T) {
 }
 
 func TestServerStreamParallel3(t *testing.T) {
-
 	t.Parallel()
 	rand.Seed(time.Now().UnixNano())
 

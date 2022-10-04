@@ -7,6 +7,13 @@ This Go module simplifies how you use protobuf with Nats.io:
 3. Bind the implementation on the server side
 4. Make a call from the clients
 
+To install the plugin:
+
+```
+go install github.com/ftamhar/cmd/protoc-gen-toldata@latest
+```
+
+
 ### Example
 Proto:
 ```

@@ -8,14 +8,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/citradigital/toldata"
+	"github.com/ftamhar/toldata"
 	"github.com/stretchr/testify/assert"
 	grpc "google.golang.org/grpc"
 	status "google.golang.org/grpc/status"
 )
 
-var grpcServer *grpc.Server
-var grpcClient TestServiceClient
+var (
+	grpcServer *grpc.Server
+	grpcClient TestServiceClient
+)
 
 const serverAddr = "localhost:21001"
 
@@ -114,5 +116,4 @@ func TestGRPCFeedDataHappy(t *testing.T) {
 	assert.Equal(t, nil, err)
 	assert.NotEqual(t, nil, resp)
 	assert.Equal(t, int64(45), resp.Sum)
-
 }

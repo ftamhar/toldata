@@ -9,14 +9,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/citradigital/toldata"
+	"github.com/ftamhar/toldata"
 	"github.com/stretchr/testify/assert"
 )
 
 const serverAddrREST = "localhost:21002"
 
 func startRESTTestServer(s *http.Server) {
-
 	log.Println("Starting REST server...")
 	log.Fatal(http.ListenAndServe(serverAddrREST, nil))
 }

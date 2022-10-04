@@ -19,7 +19,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 
-	nats "github.com/nats-io/nats.go"
+	"github.com/nats-io/nats.go"
 )
 
 type ServiceConfiguration struct {
@@ -34,7 +34,6 @@ type Bus struct {
 }
 
 func NewBus(ctx context.Context, config ServiceConfiguration) (*Bus, error) {
-
 	k := string("BusID")
 
 	busID := config.ID

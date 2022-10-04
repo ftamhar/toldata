@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/citradigital/toldata"
+	"github.com/ftamhar/toldata"
 )
 
 var d *TestToldataService
@@ -19,7 +19,6 @@ func TestMain(m *testing.M) {
 
 	log.Println("init")
 	bus, err := toldata.NewBus(ctx, toldata.ServiceConfiguration{URL: natsURL})
-
 	if err != nil {
 		log.Fatal(err)
 	}
