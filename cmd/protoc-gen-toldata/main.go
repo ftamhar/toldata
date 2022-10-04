@@ -17,6 +17,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"go/format"
 	"io"
 	"log"
 	"os"
@@ -130,9 +131,15 @@ func generateBase(in *descriptor.FileDescriptorProto, outputFormat, templateStri
 	filename = filename[0 : len(filename)-len(ext)]
 	filename = fmt.Sprintf(outputFormat, filename)
 
+	s, err := format.Source(buf.Bytes())
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
 	return &plugin_go.CodeGeneratorResponse_File{
 		Name:    &filename,
-		Content: stringPtr(buf.String()),
+		Content: stringPtr(string(s)),
 	}, nil
 }
 
